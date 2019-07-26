@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      // Our data object
+      var data = { a: 1 };
+
+      // The object is added to a Vue instance
+      var vm = new Vue({
+        el: "#app",
+        data: data
+      });
+
+      // Getting the property on the instance
+      // returns the one from the original data
+      console.log(vm.a == data.a); // => true
+
+      // Setting the property on the instance
+      // also affects the original data
+      vm.a = 2;
+      console.log(data.a); // => 2
+
+      // ... and vice-versa
+      data.a = 3;
+      console.log(vm.a); // => 3
+
+      console.log(vm.$data === data); // => true
+      console.log(vm.$el === document.getElementById("app")); // => true
+
+      // $watch is an instance method
+      vm.$watch("a", function(newValue, oldValue) {
+        console.log("change a");
+        // This callback will be called when `vm.a` changes
+      });
+    </script>
+  </body>
+</html>
