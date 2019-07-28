@@ -19,7 +19,7 @@
     </div>
     <div id="app-4">
       <ol>
-        <li v-for="item in todos">
+        <li v-for="item of todos">
           {{ item.text }}
         </li>
       </ol>
@@ -27,13 +27,18 @@
     <div id="app-5">
       <p>{{ message }}</p>
       <button v-on:click="reverseMessage">Reverse Message</button>
+      <button v-bind:disabled="!null" v-on:click="reverseMessage">
+        Reverse Message
+      </button>
+      <div v-bind:class="{ active: false }"></div>
     </div>
     <div id="app-6">
       <p>{{ message }}</p>
       <p v-once>{{ message }}</p>
+      <p>{{ reversedMessage }}</p>
       <input v-model="message" />
       <p>Using mustaches: {{ rawHtml }}</p>
-      <p>Using v-html directive: <div v-html="rawHtml"></div></p>
+      <p>Using v-html directive: <span v-html="rawHtml"></span></p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
@@ -85,6 +90,15 @@
         data: {
           rawHtml: '<span style="color: red">this should be red</span>',
           message: "hello vue"
+        },
+        computed: {
+          reversedMessage: function() {
+            // `this` points to the vm instance
+            return this.message
+              .split("")
+              .reverse()
+              .join("");
+          }
         }
       });
     </script>
